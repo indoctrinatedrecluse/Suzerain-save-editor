@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SuzerainSaveEditor"
+             x:Class="SuzerainSaveEditor.RiziaPage"
+             x:DataType="local:RiziaViewModel"
+             Title="Rizia DLC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Rizia DLC Editor" Style="{StaticResource Headline}" HorizontalOptions="Center" />
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Button Text="Load Save File" Command="{Binding LoadSaveFileCommand}" />
+                <Button Text="Refresh" Command="{Binding RefreshDataCommand}" />
+                <Button Text="Save Changes" Command="{Binding SaveSaveFileCommand}" />
+                <Button Text="Export As..." Command="{Binding ExportSaveFileCommand}" />
+            </HorizontalStackLayout>
+            <Label Text="{Binding StatusText}" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Green" />
+
+            <!-- Economy -->
+            <Border Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Economy" FontAttributes="Bold" FontSize="18"/>
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Budget" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding ResourcesBudget}" />
+                        
+                        <Label Grid.Row="0" Grid.Column="1" Text="Authority" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding ResourcesAuthority}" />
+                        
+                        <Label Grid.Row="0" Grid.Column="2" Text="Energy" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding ResourcesEnergy}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Income Tax" />
+                        <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding BudgetModifierIncomeTax}" />
+                        
+                        <Label Grid.Row="2" Grid.Column="1" Text="Base Energy" />
+                        <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding EnergyModifierBaseEnergy}" />
+                        
+                        <Label Grid.Row="2" Grid.Column="2" Text="Base Authority" />
+                        <Entry Grid.Row="3" Grid.Column="2" Keyboard="Numeric" Text="{Binding AuthorityModifierBaseMonarchRomus}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Military -->
+            <Border Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Military" FontAttributes="Bold" FontSize="18"/>
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Infantry" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding ArmyUnitInfantryTotal}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Tanks" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding ArmyUnitTankTotal}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Submarines" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding ArmyUnitSubmarineTotal}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Support" />
+                        <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding ArmyUnitSupportTotal}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="Ships" />
+                        <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding ArmyUnitShipTotal}" />
+                        
+                        <Label Grid.Row="4" Grid.Column="0" Text="War Action Points" />
+                        <Entry Grid.Row="5" Grid.Column="0" Keyboard="Numeric" Text="{Binding WarActionPoints}" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="Airstrike Refill" />
+                        <Entry Grid.Row="5" Grid.Column="1" Keyboard="Numeric" Text="{Binding AirStrikeRefillPerFragment}" />
+                        <Label Grid.Row="4" Grid.Column="2" Text="War Support" />
+                        <Entry Grid.Row="5" Grid.Column="2" Keyboard="Numeric" Text="{Binding WarPalesPublicWarSupport}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+            
+            <!-- Diplomacy -->
+            <Border Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Diplomacy &amp; Relations" FontAttributes="Bold" FontSize="18"/>
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Derdia Power" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding DiplomacyDerdia}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Morella Power" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding DiplomacyMorella}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Sordland Power" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding DiplomacySordland}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Lespia Power" />
+                        <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding DiplomacyLespia}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="Valgsland Power" />
+                        <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding DiplomacyValgsland}" />
+                        <Label Grid.Row="2" Grid.Column="2" Text="Wehlen Power" />
+                        <Entry Grid.Row="3" Grid.Column="2" Keyboard="Numeric" Text="{Binding DiplomacyWehlen}" />
+                        
+                        <Label Grid.Row="4" Grid.Column="0" Text="Pales Power" />
+                        <Entry Grid.Row="5" Grid.Column="0" Keyboard="Numeric" Text="{Binding DiplomacyPales}" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="Rumburg Power" />
+                        <Entry Grid.Row="5" Grid.Column="1" Keyboard="Numeric" Text="{Binding DiplomacyRumburg}" />
+                        <Label Grid.Row="4" Grid.Column="2" Text="Zille Power" />
+                        <Entry Grid.Row="5" Grid.Column="2" Keyboard="Numeric" Text="{Binding ZilleReferendumPower}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

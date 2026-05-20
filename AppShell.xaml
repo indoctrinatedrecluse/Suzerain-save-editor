@@ -6,9 +6,15 @@
     xmlns:local="clr-namespace:SuzerainSaveEditor"
     Title="SuzerainSaveEditor">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Base Game"
+            ContentTemplate="{DataTemplate local:BaseGamePage}"
+            Route="BaseGamePage" />
+        <ShellContent
+            Title="Rizia DLC"
+            ContentTemplate="{DataTemplate local:RiziaPage}"
+            Route="RiziaPage" />
+    </TabBar>
 
 </Shell>
