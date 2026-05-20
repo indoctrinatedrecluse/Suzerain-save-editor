@@ -1,0 +1,253 @@
+SUZERAIN SAVE EDIT GUIDE (2.0+)
+
+While there is a bunch of guides everywhere on cheating, I always fail to find a definitive, concrete ultimate guide for cheating online. I have made one in the past but sadly
+
+After the 2.0 update, my old cheat list became outdated, however, I, like many other suzerain gamers sometimes just want to rule over a rich, powerful Sordland/Rizia (both of which will be included in this list) without having to worry about basically anything.
+
+Disclaimer : Cheating may just take the "fun" part out of this beautiful game. But who am I to tell you how you should enjoy Suzerain?
+
+You should use notepad++ for the easiest editing, it makes everything be much much more clear and understandable than the default notepad program. On windows, locate the suzerain save folder by clicking the windows and R button at the same time, then when the prompt shows up, type in %appdata% and click ok.
+Then, look up and find where it says this
+
+Name>Appdata>Roaming
+
+Click on the "Appdata" button, then enter the LocaLow folder, from here, enter the "Torpor Games" folder (creators of this amazing game) then enter the Suzerain folder. Here you will be presented with a number of your saves depending on how many runs you have. Click the top-most notepad document (it should start with Active-Date.json) If you are using notepad+ I heavily recommend you to right click and click edit with notepad+
+
+Then, click CTRL+F and you're all set, time to cheat! To begin, copy paste what you want to edit in the "find" prompt.
+
+Suzerain - Base Game, Sordland
+
+[\"BaseGame.GovernmentBudget\"]=
+
+This edits your current national budget. Do not go over 10, it will cause a huge economic crisis. You can only edit this above 10 after turn 4. Until then, keep editing it to be 3.
+
+[\"BaseGame.PersonalWealth\"]=
+
+This edits Rayne's personal pockets. No limit for this one.
+
+[\"BaseGame.Country_Unrest\"]=
+
+This edits how much unrest is in Sordland, this one is very useful early on as it basically stabilizes Sordland in a second. If you are going autocrat, this modifier will allow you to prevent even more unrest later on.
+
+[\"BaseGame.Public_Opinion\"]=
+
+Changes the public opinion of Rayne, useful for winning reelections and preventing dissent. Does not include Bludish opinion.
+
+[\"BaseGame.Bludish_Opinion\"]=
+
+Same as the public one, but it changes Bludish opinion. This one is much more useful considering the Bludish are hard to please, this does not prevent their uprising later in the game.
+
+[\"BaseGame.Reform_Assembly_Vote\"]=
+
+This edits the vote of the assembly on your constitutional changes, does not prevent party obstructions later on but allows you to become the absolute dictator of Sordland.
+
+[\"BaseGame.Reform_Court_Vote\"]=
+
+Same thing but with the Supreme Court, useful considering how hard they are to please.
+
+[\"BaseGame.Economy_Agnland\"]=
+
+[\"BaseGame.Economy_Bergia\"]=
+
+[\"BaseGame.Economy_Lorren\"]=
+
+[\"BaseGame.Economy_Gruni\"]= 
+
+All 4 of these do the same thing, setting them to 15 makes the regions fully recover without any need for projects or investments.
+
+Albin_Convinced\"]=
+Gloria_Convinced\"]=
+
+These two prevent you from being obstructed later on after the constitution you propose passes. Being obstructed by your own party is never good.
+
+[\"GameCondition.Turn04_A_Convince_Gloria\"]=
+[\"GameCondition.Turn04_A_Convince_Albin\"]=
+
+You also need to set these two on.
+
+[\"BaseGame.Amendment_USP_Gloria_Convinced\"] - set this to true if you want article 6&7 removed without the entire USP deciding that you are terrible for giving bluds rights
+
+[\"BaseGame.Faction_USP_AgainstProposal\"]= - set this to false, refers that the USP is not against you on the proposal of removing article 6&7
+
+[\"BaseGame.TradeAmount\"]=
+
+Allows you to get the green trade modifier without actually trading. This is useless, unless you want to be Conqueror Rayne and win against Rumburg alone without any trade deals with Lespia and Valgsland
+
+[\"BaseGame.Relations_Franc_Opinion\"]=
+
+[\"BaseGame.Relations_Monica_Opinion\"]=
+
+These 2 edit the relations with your wife and son. The latter is useful to avoid divorce late-game.
+
+[\"BaseGame.Relations_Lucian_Opinion\"]=
+
+This edits your relations with the #1 machiavellian snake, Lucian. Useful for keeping him loyal and preventing information leaks.
+
+[\"BaseGame.Prologue_Studyplace_Deyr_History\"]=
+
+[\"BaseGame.Prologue_Studyplace_Holsord_Law\"]=
+
+[\"BaseGame.Prologue_Studyplace_Lachaven_Economics\"]=
+
+Set all of these 3 to true if you want to receive all 3 benefits from them (easier trade deals, more respectful assembly and supreme court, more respectful oligarchs)
+
+[\"BaseGame.LeakedScandals_Severity\"]=
+
+Keep this to 0 if you don't want to get impeached or have your reputation destroyed if your deals are exposed.
+
+[\"BaseGame.Turn06_SnO_Expansion_Army\"]=
+
+[\"BaseGame.Turn06_SnO_Expansion_Navy\"]=
+
+[\"BaseGame.Turn06_SnO_Expansion_Airforce\"]=
+
+[\"BaseGame.Situation_Military_ExpandedAirForce\"]=
+[\"BaseGame.Situation_Military_ExpandedAirForce\"]=
+[\"BaseGame.Situation_Military_ExpandedNavy\"]=
+
+These are for expansion, expand everything and win easily. Make sure to do it after you've already invested and expanded a branch so it doesn't glitch (the game can't edit a true value to true again) yes, you need all 6 set to true.
+
+[\"BaseGame.Situation_Military_ModernisedAirForce\"]=
+
+[\"BaseGame.Situation_Military_ModernisedArmy\"]=
+
+[\"BaseGame.Situation_Military_ModernisedNavy\"]=
+
+[\"BaseGame.Turn06_SnO_Modernisation_Army\"]=
+
+[\"BaseGame.Turn06_SnO_Modernisation_Navy\"]=
+
+[\"BaseGame.Turn06_SnO_Modernisation_Airforce\"]=
+
+BaseGameIsolated.Turn09_A_TelevisionInterview_International_Empathy_Gained
+
+This one is useful for sanctioning Rumburg no matter how unpopular you are in the world.
+
+Same thing but for modernizing, I haven't tried both modernizing and expanding everything at the same time so do that on your own risk. However, it should work.
+
+That's it for Suzerain, now for Rizia.
+
+- - - - - - - - - - - - - -
+
+Suzerain - Rizia DLC, Rizia
+
+Economy Cheats
+
+[\"RiziaDLC.Resources_Budget\"]=
+
+Edits your national budget, this is capped at 25.
+
+[\"RiziaDLC.Resources_Authority\"]=
+
+Edits your authority, capped at 15.
+
+[\"RiziaDLC.Resources_Energy\"]=
+
+Same as above, capped at 25.
+
+[\"RiziaDLC.Budget_Modifier_IncomeTax\"]=
+
+This one edits your income gained per turn, I recommend setting it to 300 for optimal experience. Prevents any mention of a bad economy or deficit.
+
+[\"RiziaDLC.Energy_Modifier_BaseEnergy\"]=
+[\"RiziaDLC.Authority_Modifier_BaseMonarchRomus\"]=
+
+Same as above, but for energy and authority. Useful since you don't need to edit the save file every 2 minutes.
+
+- - - - - - - - - - - - - - -
+
+Military Cheats
+
+[\"RiziaDLC.Army_Unit_Infantry_Total\"]=
+[\"RiziaDLC.Army_Unit_Tank_Total\"]=
+[\"RiziaDLC.Army_Unit_Submarine_Total\"]=
+[\"RiziaDLC.Army_Unit_Support_Total\"]=
+[\"RiziaDLC.Army_Unit_Ship_Total\"]=
+
+All of these edit how much deployable units you have during war, setting them to around 100 each is more than enough and gives you the overwhelming power projection modifier, along with dozens of other positive modifiers in the military section.
+
+[\"RiziaDLC.Resources_Military_Trucks\"]=
+
+[\"RiziaDLC.Resources_Military_Ships\"]=
+
+[\"RiziaDLC.Resources_Military_Tanks\"]=
+
+[\"RiziaDLC.Resources_Military_Submarines\"]=
+
+[\"RiziaDLC.Resources_Military_Manpower\"]=
+
+[\"RiziaDLC.Resources_Military_Equipment\"]=
+
+All of these edit your stockpile size of military resources, they give you another trillion positive modifiers. They do not represent deployable troops!!!
+
+[\"RiziaDLC.War_ActionPoints\"]=
+
+This is an absolutely amazing cheat, allows you to give yourself unlimited action points in war which means you can keep doing whatever you want for as long as you want, ending the turn when you are finished (airstrike everything, attack, end turn, repeat.)
+
+[\"RiziaDLC.Resources_Military_AirStrikeRefillPerFragment\"]=
+
+Another amazing cheat, allows you to have infinite airstrikes, you can decimate their entire armies from the skies and then clean up the remains. Both of these 2 allow you to win the war in less than 2 phases.
+
+[\"RiziaDLC.War_Pales_PublicWarSupport\"]=
+
+Allows you to edit how much the Rizians support the Pales war, very useful to prevent rioting and anti-war protests. Does not prevent mother's war protest if you decree 18yo conscription.
+
+- - - - - - - - - - - - - - -
+
+Welfare, Opinion, Diplomacy Cheats
+
+[\"RiziaDLC.Country_ProductionCapacity\"]=
+
+Self explanatory.
+
+[\"RiziaDLC.Country_LivingStandards\"]=
+
+Self explanatory.
+
+[\"RiziaDLC.Country_PublicOpinion\"]=
+
+Self explanatory, prevents late game unrest and revolution.
+
+[\"RiziaDLC.Country_HouseToras\"]=
+
+[\"RiziaDLC.Country_HouseSazon\"]=
+
+[\"RiziaDLC.Country_HouseAzaro\"]=
+
+These increase your reputation with the 3 houses, also prevent a coup from the 3 houses.
+
+[\"RiziaDLC.Country_GolcondistOpinion\"]=
+
+[\"RiziaDLC.Country_WruhecistOpinion\"]=
+
+[\"RiziaDLC.Country_DastnuristOpinion\"]=
+
+Increases standing with the 3 main religions.
+
+[\"RiziaDLC.Diplomacy_Derdia_NegotiatingPower\"]=
+[\"RiziaDLC.Diplomacy_Morella_NegotiatingPower\"]=
+[\"RiziaDLC.Diplomacy_Sordland_NegotiatingPower\"]=
+[\"RiziaDLC.Zille_ReferendumPower\"]=
+[\"RiziaDLC.Diplomacy_Lespia_NegotiatingPower\"]=
+[\"RiziaDLC.CountryRelation_Lespia_Friendly\"]=
+[\"RiziaDLC.Diplomacy_Valgsland_NegotiatingPower\"]=
+[\"RiziaDLC.Diplomacy_Pales_NegotiatingPower\"]=
+[\"RiziaDLC.Diplomacy_Rumburg_NegotiatingPower\"]=
+[\"RiziaDLC.Diplomacy_Wehlen_NegotiatingPower\"]=
+
+I know it seems like a lot, but you can use the arrow feature to scroll right after derdia and edit all of them to 15 or less, all of this makes them extremely willing to accept even the harshest demands the Rizian King demands.
+
+[\"RiziaDLC.Relations_Sal\"]=
+[\"RiziaDLC.Relations_Vina\"]=
+[\"RiziaDLC.Relations_Estela\"]=
+[\"RiziaDLC.Relations_Pabel\"]=
+[\"RiziaDLC.Relations_Hugo\"]=
+[\"RiziaDLC.Relations_Lucita_Romance\"]=
+
+Edits how much each council member likes you, the cheat for Lucita is special and is limited to 3.
+
+I would call this the Definitive Guide to Suzerain Cheating. If you have any questions, ask in the comment section and I will answer you. Remember to save your edits before closing the notepad, otherwise there will be no cheats.
+
+Definitive Guide to War coming soon... (no cheats)
+
+Edits will be often since I will add (some) user suggestions on expanding the guide and cheat list, remember to check the comment list for extra cheats and tricks that aren't in the guide!/
