@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Graphics;
 using System;
 
 namespace SuzerainSaveEditor

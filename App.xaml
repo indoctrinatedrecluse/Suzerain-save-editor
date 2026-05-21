@@ -5,6 +5,7 @@
              x:Class="SuzerainSaveEditor.App">
     <Application.Resources>
         <ResourceDictionary>
+            <local:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
