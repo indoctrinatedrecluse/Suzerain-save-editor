@@ -1,4 +1,4 @@
-﻿v1.0.3
+﻿v1.0.4
 
 - Patched build process to use stable .NET 8 LTS, resolving all build and dependency conflicts.
 - Fixed critical error in "Export As..." functionality.
