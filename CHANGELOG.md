@@ -1,10 +1,11 @@
-﻿v1.0.4
+﻿v1.0.5
 
 - Patched build process to use stable .NET 8 LTS, resolving all build and dependency conflicts.
 - Fixed critical error in "Export As..." functionality.
 - Added null-reference safety checks to prevent crashes when loading data.
 - Corrected military modernization warning text as requested.
 - Added .gitignore which I forgot earlier (ouch)!
+- Other internal hotfixes, git related.
 
 ---
 v1.0.0
