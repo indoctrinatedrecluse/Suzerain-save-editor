@@ -1,20 +1,32 @@
-﻿# Get the latest version from CHANGELOG.md
-$latestVersion = (Get-Content -Path CHANGELOG.md | Select-String -Pattern "\[([0-9]+\.[0-9]+\.[0-9]+)\]" -AllMatches).Matches.Value.Trim('[]')
-if (-not $latestVersion) {
-    Write-Error "Could not find a version in CHANGELOG.md"
+﻿# This script automates the release process.
+# 1. Reads the version from the first line of CHANGELOG.md.
+# 2. Commits all changes with a standardized message.
+# 3. Tags the commit with the version.
+# 4. Pushes the commit and the tag to the 'main' branch.
+
+# Get the version from the first line of the changelog
+$version = (Get-Content -Path CHANGELOG.md -TotalCount 1).Trim()
+
+if (-not $version) {
+    Write-Error "Could not read version from CHANGELOG.md. Aborting."
     exit 1
 }
 
-$tagName = "v$latestVersion"
-Write-Host "Latest version: $tagName"
+Write-Host "Preparing release for version: $version"
 
-# Commit all changes
+# Add all changes to git
 git add .
-git commit -m "Release $tagName"
 
-# Create a new tag
-git tag $tagName
+# Commit the changes
+$commitMessage = "Release $version"
+git commit -m $commitMessage
 
-# Push the commit and the tag
-git push
-git push origin $tagName
+# Tag the commit
+git tag $version
+
+# Push the commit and the tag to the main branch
+Write-Host "Pushing commit and tag to main..."
+git push origin main
+git push origin $version
+
+Write-Host "Push complete. GitHub Action should now be triggered."

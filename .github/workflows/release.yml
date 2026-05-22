@@ -1,47 +1,49 @@
-﻿name: Release Windows Executable
+﻿name: Create Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: windows-latest
+  build-and-release:
+    runs-on: windows-latest  # Use a Windows runner to build the .exe
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.x'
+      - name: Get version from CHANGELOG
+        id: get_version
+        run: |
+          $version = (Get-Content -Path CHANGELOG.md -TotalCount 1).Trim()
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+        shell: pwsh
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Check if release tag already exists
+        id: check_tag
+        uses: mukunku/tag-exists-action@v1.4.0
+        with:
+          tag: ${{ env.VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and publish
-      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -p:RuntimeIdentifier=win-x64
+      - name: Build the application if tag is new
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          # Setup .NET 8 SDK
+          & "D:\a\_actions\actions\setup-dotnet\v4\bin\setup-dotnet.cmd" '8.0'
+          
+          # Run the build script
+          ./build.ps1
+        shell: pwsh
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
-        draft: false
-        prerelease: false
-
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./bin/Release/net8.0-windows10.0.19041.0/win-x64/publish/SuzerainSaveEditor.exe
-        asset_name: SuzerainSaveEditor.exe
-        asset_content_type: application/vnd.microsoft.portable-executable
+      - name: Create GitHub Release and Upload Asset
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: bin/Release/net8.0-windows10.0.19041.0/win-x64/publish/SuzerainSaveEditor.exe
+          tag_name: ${{ env.VERSION }}
+          name: Release ${{ env.VERSION }}
+          body_path: CHANGELOG.md
+          prerelease: false
