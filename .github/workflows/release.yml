@@ -2,53 +2,35 @@
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*' # Trigger only when a tag starting with 'v' is pushed
 
 jobs:
   build-and-release:
-    runs-on: windows-latest  # Use a Windows runner to build the .exe
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Required to fetch tags
-
-      - name: Get latest tag
-        id: get_tag
-        run: |
-          $tag = (git describe --tags --abbrev=0)
-          echo "VERSION=$tag" >> $env:GITHUB_ENV
-        shell: pwsh
-
-      - name: Check if release tag already exists
-        id: check_tag
-        uses: mukunku/tag-exists-action@v1.4.0
-        with:
-          tag: ${{ env.VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup .NET
-        if: steps.check_tag.outputs.exists == 'false'
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
       - name: Build the application
-        if: steps.check_tag.outputs.exists == 'false'
         run: |
           dotnet restore
           dotnet publish -f net8.0-windows10.0.19041.0 -c Release --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -p:RuntimeIdentifier=win-x64
         shell: pwsh
 
       - name: Create GitHub Release and Upload Asset
-        if: steps.check_tag.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
           files: bin/Release/net8.0-windows10.0.19041.0/win-x64/publish/SuzerainSaveEditor.exe
-          tag_name: ${{ env.VERSION }}
-          name: Release ${{ env.VERSION }}
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
           body_path: CHANGELOG.md
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

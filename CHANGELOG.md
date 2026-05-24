@@ -1,4 +1,4 @@
-﻿v1.0.8
+﻿v1.0.9
 
 - Refactored GitHub Actions release workflow to trigger accurately on pushes to the master branch.
 - Updated automated push scripts (push.ps1 and push.sh) to reliably extract version tags, commit, and push to the master branch.
