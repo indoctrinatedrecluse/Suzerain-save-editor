@@ -18,7 +18,10 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build the application
+      - name: Install MAUI Workloads
+        run: dotnet workload restore
+
+      - name: Build and Publish
         run: |
           dotnet restore
           dotnet publish -f net8.0-windows10.0.19041.0 -c Release --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -p:RuntimeIdentifier=win-x64
