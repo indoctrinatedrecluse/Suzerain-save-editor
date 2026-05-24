@@ -1,4 +1,10 @@
-﻿v1.0.5
+﻿v1.0.6
+
+- Refactored GitHub Actions release workflow to trigger accurately on pushes to the master branch.
+- Updated automated push scripts (push.ps1 and push.sh) to reliably extract version tags, commit, and push to the master branch.
+
+---
+v1.0.5
 
 - Patched build process to use stable .NET 8 LTS, resolving all build and dependency conflicts.
 - Fixed critical error in "Export As..." functionality.

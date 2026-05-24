@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-release:
@@ -12,12 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to fetch tags
 
-      - name: Get version from CHANGELOG
-        id: get_version
+      - name: Get latest tag
+        id: get_tag
         run: |
-          $version = (Get-Content -Path CHANGELOG.md -TotalCount 1).Trim()
-          echo "VERSION=$version" >> $env:GITHUB_ENV
+          $tag = (git describe --tags --abbrev=0)
+          echo "VERSION=$tag" >> $env:GITHUB_ENV
         shell: pwsh
 
       - name: Check if release tag already exists
@@ -28,14 +30,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build the application if tag is new
+      - name: Setup .NET
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build the application
         if: steps.check_tag.outputs.exists == 'false'
         run: |
-          # Setup .NET 8 SDK
-          & "D:\a\_actions\actions\setup-dotnet\v4\bin\setup-dotnet.cmd" '8.0'
-          
-          # Run the build script
-          ./build.ps1
+          dotnet restore
+          dotnet publish -f net8.0-windows10.0.19041.0 -c Release --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -p:RuntimeIdentifier=win-x64
         shell: pwsh
 
       - name: Create GitHub Release and Upload Asset

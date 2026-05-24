@@ -1,40 +1,24 @@
 ﻿#!/bin/bash
-# This script automates the release process.
-# 1. Reads the version from the first line of CHANGELOG.md.
-# 2. Commits all changes with a standardized message.
-# 3. Tags the commit with the version.
-# 4. Pushes the commit and the tag to the current branch.
+set -e
 
-# Get the version from the first line of the changelog
-version=$(head -n 1 CHANGELOG.md | tr -d '[:space:]')
+# Find the first line in CHANGELOG.md that starts with 'v' followed by a digit.
+VERSION=$(grep -m 1 -oP '^v\d+\.\d+\.\d+' CHANGELOG.md)
 
-if [ -z "$version" ]; then
-    echo "Could not read version from CHANGELOG.md. Aborting."
+if [ -z "$VERSION" ]; then
+    echo "Error: Could not find a version string like 'v1.0.0' at the start of a line in CHANGELOG.md"
     exit 1
 fi
 
-# Get the current branch name
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-if [ -z "$current_branch" ]; then
-    echo "Could not determine the current git branch. Aborting."
-    exit 1
-fi
+echo "Found version: $VERSION"
 
-echo "Preparing release for version: $version on branch: $current_branch"
-
-# Add all changes to git
+# Add, commit, and tag
 git add .
+git commit -m "Release $VERSION"
+git tag -f "$VERSION"
 
-# Commit the changes
-commit_message="Release $version"
-git commit -m "$commit_message"
+# Push the commit to master and the tag
+echo "Pushing commit to master and tag $VERSION..."
+git push origin master
+git push origin "$VERSION" --force
 
-# Tag the commit
-git tag "$version"
-
-# Push the commit and the tag to the current branch
-echo "Pushing commit and tag to $current_branch..."
-git push origin "$current_branch"
-git push origin "$version"
-
-echo "Push complete. GitHub Action should now be triggered."
+echo "Push complete. Release workflow triggered."

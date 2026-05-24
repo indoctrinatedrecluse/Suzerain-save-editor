@@ -1,10 +1,16 @@
-﻿# User-specific files
+﻿# Ignore all build outputs and artifacts
+[Bb]in/
+[Oo]bj/
+
+# Ignore user-specific IDE settings and files
+.vs/
+.idea/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 
-# Build results
+# Ignore build results
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -14,11 +20,29 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
-[Oo]bj/
 
-# Visual Studio 2019 cache/options
-.vs/
+# Ignore other generated files
+*.nupkg
+*.snupkg
+*.zip
+*.tar.gz
+*.exe
+*.dll
+*.pdb
 
-# Rider
-.idea/
+# Ignore publish directories
+publish/
+**/publish
+
+# Ignore package directories
+packages/
+**/packages
+
+# Ignore Rider-specific files
+*.sln.iml
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore Mac-specific files
+.DS_Store
