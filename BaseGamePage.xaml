@@ -45,6 +45,27 @@
                 </VerticalStackLayout>
             </Border>
 
+            <!-- Events & Interventions -->
+            <Border Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Events &amp; Interventions" FontAttributes="Bold" FontSize="18"/>
+                    
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Revert Black Tuesday (Economic Crash)" FontAttributes="Bold" />
+                            <Label Text="(Nuclear Option: If you see this event has already happened, reload the last save before this turn, save just before this turn, load the save, turn off this option, then overwrite and load this save in game to go to next turn)" FontSize="10" TextColor="Red" />
+                        </VerticalStackLayout>
+                        <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding BlackTuesdayHappened}" VerticalOptions="Center" />
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">
+                            <Label Text="Prevent Market Crash" FontAttributes="Bold" />
+                            <Label Text="(Recommended to also be turned off if Black Tuesday happened)" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
+                        <Switch Grid.Row="1" Grid.Column="1" IsToggled="{Binding IsMarketCrashing}" VerticalOptions="Center" Margin="0,10,0,0" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
             <!-- Politics & Reform -->
             <Border Padding="15">
                 <VerticalStackLayout Spacing="10">

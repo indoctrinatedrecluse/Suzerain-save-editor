@@ -18,6 +18,10 @@ namespace SuzerainSaveEditor
         [ObservableProperty] private int? _gameTurn;
         [ObservableProperty] private string? _budgetWarningText;
 
+        // Event Toggles
+        [ObservableProperty] private bool _blackTuesdayHappened;
+        [ObservableProperty] private bool _isMarketCrashing;
+
         public Color BudgetTextColor => (GameTurn.HasValue && GameTurn < 4 && GovernmentBudget.HasValue && GovernmentBudget > 3) ? Colors.Red : Colors.Black;
 
 
@@ -71,6 +75,9 @@ namespace SuzerainSaveEditor
             CountryUnrest = GetIntValue("BaseGame.Country_Unrest");
             PublicOpinion = GetIntValue("BaseGame.Public_Opinion");
             BludishOpinion = GetIntValue("BaseGame.Bludish_Opinion");
+
+            BlackTuesdayHappened = GetBoolValue("BaseGame.BlackTuesdayHappened");
+            IsMarketCrashing = GetBoolValue("Game.IsMarketCrashing");
 
             ReformAssemblyVote = GetIntValue("BaseGame.Reform_Assembly_Vote");
             ReformCourtVote = GetIntValue("BaseGame.Reform_Court_Vote");
@@ -146,6 +153,9 @@ namespace SuzerainSaveEditor
         protected override void SavePropertiesToData()
         {
             if (_saveData == null) return;
+
+            _saveData["BaseGame.BlackTuesdayHappened"] = BlackTuesdayHappened;
+            _saveData["Game.IsMarketCrashing"] = IsMarketCrashing;
 
             if (GovernmentBudget.HasValue) _saveData["BaseGame.GovernmentBudget"] = GovernmentBudget.Value;
             if (PersonalWealth.HasValue) _saveData["BaseGame.PersonalWealth"] = PersonalWealth.Value;

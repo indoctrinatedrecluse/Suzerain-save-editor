@@ -1,4 +1,11 @@
-﻿v1.0.9
+﻿v1.1.0
+
+- Added "Revert Black Tuesday" and "Prevent Market Crash" toggles to the Base Game editor.
+- These new options allow for direct intervention in major economic game events.
+- Added detailed warning labels for the new event toggles to guide usage.
+
+---
+v1.0.9
 
 - Refactored GitHub Actions release workflow to trigger accurately on pushes to the master branch.
 - Updated automated push scripts (push.ps1 and push.sh) to reliably extract version tags, commit, and push to the master branch.
