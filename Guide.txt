@@ -102,7 +102,7 @@ Keep this to 0 if you don't want to get impeached or have your reputation destro
 [\"BaseGame.Turn06_SnO_Expansion_Airforce\"]=
 
 [\"BaseGame.Situation_Military_ExpandedAirForce\"]=
-[\"BaseGame.Situation_Military_ExpandedAirForce\"]=
+[\"BaseGame.Situation_Military_ExpandedArmy\"]=
 [\"BaseGame.Situation_Military_ExpandedNavy\"]=
 
 These are for expansion, expand everything and win easily. Make sure to do it after you've already invested and expanded a branch so it doesn't glitch (the game can't edit a true value to true again) yes, you need all 6 set to true.
