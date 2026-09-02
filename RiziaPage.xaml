@@ -23,22 +23,40 @@
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Economy" FontAttributes="Bold" FontSize="18"/>
                     <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Budget" />
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Budget" />
+                            <Label Text="Capped at 25" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
                         <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding ResourcesBudget}" />
                         
-                        <Label Grid.Row="0" Grid.Column="1" Text="Authority" />
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                            <Label Text="Authority" />
+                            <Label Text="Capped at 15" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
                         <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding ResourcesAuthority}" />
                         
-                        <Label Grid.Row="0" Grid.Column="2" Text="Energy" />
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="2">
+                            <Label Text="Energy" />
+                            <Label Text="Capped at 25" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
                         <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding ResourcesEnergy}" />
 
-                        <Label Grid.Row="2" Grid.Column="0" Text="Income Tax" />
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                            <Label Text="Income Tax" />
+                            <Label Text="Income Gained per turn, optimally set to 300" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
                         <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding BudgetModifierIncomeTax}" />
                         
-                        <Label Grid.Row="2" Grid.Column="1" Text="Base Energy" />
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                            <Label Text="Base Energy" />
+                            <Label Text="Energy gained per turn, optimally set to 100" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
                         <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding EnergyModifierBaseEnergy}" />
                         
-                        <Label Grid.Row="2" Grid.Column="2" Text="Base Authority" />
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="2">
+                            <Label Text="Base Authority" />
+                            <Label Text="Authority gained per turn, optimally set to 100" FontSize="10" TextColor="DarkGoldenrod" />
+                        </VerticalStackLayout>
                         <Entry Grid.Row="3" Grid.Column="2" Keyboard="Numeric" Text="{Binding AuthorityModifierBaseMonarchRomus}" />
                     </Grid>
                 </VerticalStackLayout>
@@ -48,7 +66,8 @@
             <Border Padding="15">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Military" FontAttributes="Bold" FontSize="18"/>
-                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                    <Label Text="Deployable Units" FontAttributes="Bold" TextColor="Red" />
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
                         <Label Grid.Row="0" Grid.Column="0" Text="Infantry" />
                         <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding ArmyUnitInfantryTotal}" />
                         <Label Grid.Row="0" Grid.Column="1" Text="Tanks" />
@@ -60,21 +79,78 @@
                         <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding ArmyUnitSupportTotal}" />
                         <Label Grid.Row="2" Grid.Column="1" Text="Ships" />
                         <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding ArmyUnitShipTotal}" />
-                        
-                        <Label Grid.Row="4" Grid.Column="0" Text="War Action Points" />
-                        <Entry Grid.Row="5" Grid.Column="0" Keyboard="Numeric" Text="{Binding WarActionPoints}" />
-                        <Label Grid.Row="4" Grid.Column="1" Text="Airstrike Refill" />
-                        <Entry Grid.Row="5" Grid.Column="1" Keyboard="Numeric" Text="{Binding AirStrikeRefillPerFragment}" />
-                        <Label Grid.Row="4" Grid.Column="2" Text="War Support" />
-                        <Entry Grid.Row="5" Grid.Column="2" Keyboard="Numeric" Text="{Binding WarPalesPublicWarSupport}" />
+                    </Grid>
+
+                    <Label Text="Total Stockpiled Units" FontAttributes="Bold" TextColor="DarkGoldenrod" />
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Trucks" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding ResourcesMilitaryTrucks}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Ships" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding ResourcesMilitaryShips}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Tanks" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding ResourcesMilitaryTanks}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Submarines" />
+                        <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding ResourcesMilitarySubmarines}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="Manpower" />
+                        <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding ResourcesMilitaryManpower}" />
+                        <Label Grid.Row="2" Grid.Column="2" Text="Equipment" />
+                        <Entry Grid.Row="3" Grid.Column="2" Keyboard="Numeric" Text="{Binding ResourcesMilitaryEquipment}" />
+                    </Grid>
+
+                    <Label Text="War Menu Cheats" FontAttributes="Bold" TextColor="Green" />
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="War Action Points" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding WarActionPoints}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Airstrike Refill" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding AirStrikeRefillPerFragment}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="War Support" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding WarPalesPublicWarSupport}" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>
             
+            <!-- Internal Relations -->
+            <Border Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Internal Relations" FontAttributes="Bold" FontSize="18"/>
+
+                    <Label Text="Industries" FontAttributes="Bold" TextColor="Red" />
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Production Capacity" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding CountryProductionCapacity}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Living Standards" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding CountryLivingStandards}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Public Opinion" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding CountryPublicOpinion}" />
+                    </Grid>
+
+                    <Label Text="People" FontAttributes="Bold" TextColor="DarkGoldenrod" />
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Golcondist Opinion" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding CountryGolcondistOpinion}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Wruhecist Opinion" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding CountryWruhecistOpinion}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Dastnurist Opinion" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding CountryDastnuristOpinion}" />
+                    </Grid>
+
+                    <Label Text="Factions" FontAttributes="Bold" TextColor="Green" />
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="House Toras" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding CountryHouseToras}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="House Sazon" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding CountryHouseSazon}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="House Azaro" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding CountryHouseAzaro}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
             <!-- Diplomacy -->
             <Border Padding="15">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="Diplomacy &amp; Relations" FontAttributes="Bold" FontSize="18"/>
+                    <Label Text="Foreign Affairs" FontAttributes="Bold" FontSize="18"/>
                     <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
                         <Label Grid.Row="0" Grid.Column="0" Text="Derdia Power" />
                         <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding DiplomacyDerdia}" />
@@ -96,6 +172,36 @@
                         <Entry Grid.Row="5" Grid.Column="1" Keyboard="Numeric" Text="{Binding DiplomacyRumburg}" />
                         <Label Grid.Row="4" Grid.Column="2" Text="Zille Power" />
                         <Entry Grid.Row="5" Grid.Column="2" Keyboard="Numeric" Text="{Binding ZilleReferendumPower}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="Lespia Friendly" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding CountryRelationLespiaFriendly}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Family -->
+            <Border Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Family" FontAttributes="Bold" FontSize="18"/>
+                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Sal" />
+                        <Entry Grid.Row="1" Grid.Column="0" Keyboard="Numeric" Text="{Binding RelationsSal}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Vina" />
+                        <Entry Grid.Row="1" Grid.Column="1" Keyboard="Numeric" Text="{Binding RelationsVina}" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Estela" />
+                        <Entry Grid.Row="1" Grid.Column="2" Keyboard="Numeric" Text="{Binding RelationsEstela}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Pabel" />
+                        <Entry Grid.Row="3" Grid.Column="0" Keyboard="Numeric" Text="{Binding RelationsPabel}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="Hugo" />
+                        <Entry Grid.Row="3" Grid.Column="1" Keyboard="Numeric" Text="{Binding RelationsHugo}" />
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="2">
+                            <Label Text="Lucita Romance" />
+                            <Label Text="Capped at 3, do not touch unless necessary" FontSize="10" TextColor="Red" />
+                        </VerticalStackLayout>
+                        <Entry Grid.Row="3" Grid.Column="2" Keyboard="Numeric" Text="{Binding RelationsLucitaRomance}" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>

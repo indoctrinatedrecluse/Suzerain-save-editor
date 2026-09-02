@@ -103,19 +103,20 @@ namespace SuzerainSaveEditor
             LeakedScandalsSeverity = GetIntValue("BaseGame.LeakedScandals_Severity");
             TelevisionInterviewEmpathy = GetBoolValue("BaseGameIsolated.Turn09_A_TelevisionInterview_International_Empathy_Gained");
 
-            Turn06SnOExpansionArmy = GetBoolValue("BaseGame.Turn06_SnO_Expansion_Army");
-            Turn06SnOExpansionNavy = GetBoolValue("BaseGame.Turn06_SnO_Expansion_Navy");
-            Turn06SnOExpansionAirforce = GetBoolValue("BaseGame.Turn06_SnO_Expansion_Airforce");
-            SituationMilitaryExpandedArmy = GetBoolValue("BaseGame.Situation_Military_ExpandedArmy");
-            SituationMilitaryExpandedNavy = GetBoolValue("BaseGame.Situation_Military_ExpandedNavy");
-            SituationMilitaryExpandedAirForce = GetBoolValue("BaseGame.Situation_Military_ExpandedAirForce");
+            // A paired military option is shown as enabled only when both save flags are enabled.
+            Turn06SnOExpansionArmy = GetBoolValue("BaseGame.Turn06_SnO_Expansion_Army")
+                && GetBoolValue("BaseGame.Situation_Military_ExpandedArmy");
+            Turn06SnOExpansionNavy = GetBoolValue("BaseGame.Turn06_SnO_Expansion_Navy")
+                && GetBoolValue("BaseGame.Situation_Military_ExpandedNavy");
+            Turn06SnOExpansionAirforce = GetBoolValue("BaseGame.Turn06_SnO_Expansion_Airforce")
+                && GetBoolValue("BaseGame.Situation_Military_ExpandedAirForce");
 
-            Turn06SnOModernisationArmy = GetBoolValue("BaseGame.Turn06_SnO_Modernisation_Army");
-            Turn06SnOModernisationNavy = GetBoolValue("BaseGame.Turn06_SnO_Modernisation_Navy");
-            Turn06SnOModernisationAirforce = GetBoolValue("BaseGame.Turn06_SnO_Modernisation_Airforce");
-            SituationMilitaryModernisedArmy = GetBoolValue("BaseGame.Situation_Military_ModernisedArmy");
-            SituationMilitaryModernisedNavy = GetBoolValue("BaseGame.Situation_Military_ModernisedNavy");
-            SituationMilitaryModernisedAirForce = GetBoolValue("BaseGame.Situation_Military_ModernisedAirForce");
+            Turn06SnOModernisationArmy = GetBoolValue("BaseGame.Turn06_SnO_Modernisation_Army")
+                && GetBoolValue("BaseGame.Situation_Military_ModernisedArmy");
+            Turn06SnOModernisationNavy = GetBoolValue("BaseGame.Turn06_SnO_Modernisation_Navy")
+                && GetBoolValue("BaseGame.Situation_Military_ModernisedNavy");
+            Turn06SnOModernisationAirforce = GetBoolValue("BaseGame.Turn06_SnO_Modernisation_Airforce")
+                && GetBoolValue("BaseGame.Situation_Military_ModernisedAirForce");
             
             UpdateBudgetWarning();
         }
@@ -123,6 +124,66 @@ namespace SuzerainSaveEditor
         partial void OnGovernmentBudgetChanged(int? value)
         {
             UpdateBudgetWarning();
+        }
+
+        partial void OnTurn06SnOExpansionArmyChanged(bool value)
+        {
+            SituationMilitaryExpandedArmy = value;
+        }
+
+        partial void OnSituationMilitaryExpandedArmyChanged(bool value)
+        {
+            Turn06SnOExpansionArmy = value;
+        }
+
+        partial void OnTurn06SnOExpansionNavyChanged(bool value)
+        {
+            SituationMilitaryExpandedNavy = value;
+        }
+
+        partial void OnSituationMilitaryExpandedNavyChanged(bool value)
+        {
+            Turn06SnOExpansionNavy = value;
+        }
+
+        partial void OnTurn06SnOExpansionAirforceChanged(bool value)
+        {
+            SituationMilitaryExpandedAirForce = value;
+        }
+
+        partial void OnSituationMilitaryExpandedAirForceChanged(bool value)
+        {
+            Turn06SnOExpansionAirforce = value;
+        }
+
+        partial void OnTurn06SnOModernisationArmyChanged(bool value)
+        {
+            SituationMilitaryModernisedArmy = value;
+        }
+
+        partial void OnSituationMilitaryModernisedArmyChanged(bool value)
+        {
+            Turn06SnOModernisationArmy = value;
+        }
+
+        partial void OnTurn06SnOModernisationNavyChanged(bool value)
+        {
+            SituationMilitaryModernisedNavy = value;
+        }
+
+        partial void OnSituationMilitaryModernisedNavyChanged(bool value)
+        {
+            Turn06SnOModernisationNavy = value;
+        }
+
+        partial void OnTurn06SnOModernisationAirforceChanged(bool value)
+        {
+            SituationMilitaryModernisedAirForce = value;
+        }
+
+        partial void OnSituationMilitaryModernisedAirForceChanged(bool value)
+        {
+            Turn06SnOModernisationAirforce = value;
         }
 
         private void UpdateBudgetWarning()

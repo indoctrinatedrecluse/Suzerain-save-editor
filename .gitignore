@@ -46,3 +46,7 @@ packages/
 
 # Ignore Mac-specific files
 .DS_Store
+
+# Ignore local reference material and save files
+Guide.txt
+FinalSave_11-12-2025_22-14-25.json

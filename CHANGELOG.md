@@ -1,4 +1,14 @@
-﻿v1.1.0
+v1.2.0
+
+- Expanded the Base Game editor with Prologue, relationship, constitutional reform, international-empathy, and military expansion/modernization options.
+- Paired Base Game military controls now update both related save flags and safely load as enabled only when both flags are enabled.
+- Added clearer Base Game ranges, warnings, labels, and grouped controls for core stats, events, politics, and military settings.
+- Expanded the Rizia DLC editor with economy guidance, grouped deployable and stockpiled military units, war-menu cheats, internal relations, foreign affairs, and family relationship controls.
+- Added missing Rizia controls for Lespia friendliness, military stockpiles, internal relations, and family values, including Lucita romance guidance.
+
+---
+
+v1.1.0
 
 - Added "Revert Black Tuesday" and "Prevent Market Crash" toggles to the Base Game editor.
 - These new options allow for direct intervention in major economic game events.
