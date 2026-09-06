@@ -33,3 +33,11 @@ A simple desktop application for editing your Suzerain save files. This tool sup
 The **Raw Save Editing** tab includes its own Load, Refresh, Save, and Export controls. Invalid raw values are rejected and marked for correction.
 
 **Disclaimer:** Modifying save files can lead to unexpected game behavior. Always back up your original saves before editing.
+
+## Release signing
+
+Windows release executables are Authenticode-signed with `signtool.exe` when signing configuration is supplied. If the signing values are missing, builds and releases continue normally without code signing.
+
+- `CODE_SIGNING_CERTIFICATE_BASE64`: Base64-encoded PFX/P12 code-signing certificate.
+- `CODE_SIGNING_CERTIFICATE_PASSWORD`: Password for the certificate.
+- `CODE_SIGNING_TIMESTAMP_URL`: RFC 3161 timestamp service URL.
