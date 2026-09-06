@@ -2,6 +2,10 @@
 
 A simple desktop application for editing your Suzerain save files. This tool supports both the base game (Sordland) and the Rizia DLC, allowing you to modify various game parameters to customize your playthrough.
 
+### Disclaimer - IMPORTANT!
+
+If changes are not reflected, or even in general, always go back to main menu and reload the save file from there, not from the pause menu. Especially on the Active save. The save editor works, one just needs to read this disclaimer!
+
 ## Features
 
 ### Base Game (Sordland)
@@ -33,11 +37,3 @@ A simple desktop application for editing your Suzerain save files. This tool sup
 The **Raw Save Editing** tab includes its own Load, Refresh, Save, and Export controls. Invalid raw values are rejected and marked for correction.
 
 **Disclaimer:** Modifying save files can lead to unexpected game behavior. Always back up your original saves before editing.
-
-## Release signing
-
-Windows release executables are Authenticode-signed with `signtool.exe` when signing configuration is supplied. If the signing values are missing, builds and releases continue normally without code signing.
-
-- `CODE_SIGNING_CERTIFICATE_BASE64`: Base64-encoded PFX/P12 code-signing certificate.
-- `CODE_SIGNING_CERTIFICATE_PASSWORD`: Password for the certificate.
-- `CODE_SIGNING_TIMESTAMP_URL`: RFC 3161 timestamp service URL.
