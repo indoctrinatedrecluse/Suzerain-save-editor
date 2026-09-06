@@ -28,24 +28,42 @@ namespace SuzerainSaveEditor
                 string key = match.Groups["key"].Value;
                 string valueStr = match.Groups["value"].Value;
 
-                if (bool.TryParse(valueStr, out bool boolValue))
+                if (TryParsePrimitiveValue(valueStr, out var value))
                 {
-                    data[key] = boolValue;
-                }
-                else if (int.TryParse(valueStr, out int intValue))
-                {
-                    data[key] = intValue;
-                }
-                else if (double.TryParse(valueStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double doubleValue))
-                {
-                    data[key] = doubleValue;
-                }
-                else
-                {
-                    data[key] = valueStr;
+                    data[key] = value;
                 }
             }
             return data;
+        }
+
+        public bool TryParsePrimitiveValue(string value, out object parsedValue)
+        {
+            if (bool.TryParse(value, out bool boolValue))
+            {
+                parsedValue = boolValue;
+                return true;
+            }
+
+            if (int.TryParse(value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out int intValue))
+            {
+                parsedValue = intValue;
+                return true;
+            }
+
+            if (double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double doubleValue))
+            {
+                if (double.IsNaN(doubleValue) || double.IsInfinity(doubleValue))
+                {
+                    parsedValue = string.Empty;
+                    return false;
+                }
+
+                parsedValue = doubleValue;
+                return true;
+            }
+
+            parsedValue = string.Empty;
+            return false;
         }
 
         public string CreateModifiedSaveContent(string? originalContent, Dictionary<string, object> modifiedValues)
@@ -57,10 +75,20 @@ namespace SuzerainSaveEditor
             {
                 // Regex updated to handle optional whitespace.
                 string pattern = $@"(\[\\\""{Regex.Escape(pair.Key)}\\\""\]\s*=\s*)([\w\.-]+|true|false)";
-                string replacement = $"${{1}}{pair.Value?.ToString()?.ToLower()}";
+                string replacement = $"${{1}}{FormatValue(pair.Value)}";
                 newContent = Regex.Replace(newContent, pattern, replacement);
             }
             return newContent;
+        }
+
+        private static string FormatValue(object? value)
+        {
+            return value switch
+            {
+                bool boolValue => boolValue ? "true" : "false",
+                IFormattable formattable => formattable.ToString(null, System.Globalization.CultureInfo.InvariantCulture),
+                _ => value?.ToString() ?? string.Empty
+            };
         }
 
         public async Task WriteSaveGameAsync(string filePath, string content)

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SuzerainSaveEditor"
+             x:Class="SuzerainSaveEditor.RawSavePage"
+             x:DataType="local:RawSaveViewModel"
+             Title="Raw Save Editing">
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="20" RowSpacing="12">
+        <Label Grid.Row="0"
+               Text="DISCLAIMER: RAW SAVE EDITING IS RISKY"
+               TextColor="Red"
+               FontAttributes="Bold"
+               FontSize="22"
+               HorizontalTextAlignment="Center" />
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10" HorizontalOptions="Center">
+            <Button Text="Load Save File" Command="{Binding LoadSaveFileCommand}" />
+            <Button Text="Refresh" Command="{Binding RefreshDataCommand}" />
+            <Button Text="Save Changes" Command="{Binding SaveSaveFileCommand}" />
+            <Button Text="Export As..." Command="{Binding ExportSaveFileCommand}" />
+        </HorizontalStackLayout>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <SearchBar Grid.Column="0"
+                       Placeholder="Search keys..."
+                       Text="{Binding SearchText}" />
+            <Label Grid.Column="1"
+                   Text="{Binding StatusText}"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   TextColor="Green" />
+        </Grid>
+
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding FilteredEntries}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:RawSaveEntry">
+                    <Grid ColumnDefinitions="*,220" ColumnSpacing="12" Padding="0,4">
+                        <Label Grid.Column="0"
+                               Text="{Binding Key}"
+                               VerticalTextAlignment="Center"
+                               LineBreakMode="TailTruncation" />
+                        <Entry Grid.Column="1"
+                               Text="{Binding Value, Mode=TwoWay}"
+                               TextColor="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                               Keyboard="Text" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

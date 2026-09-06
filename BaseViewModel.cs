@@ -13,16 +13,21 @@ namespace SuzerainSaveEditor
     public abstract partial class BaseViewModel : ObservableObject
     {
         protected readonly SaveGameService _saveGameService;
+        protected readonly SaveGameState _saveGameState;
         protected string? _loadedFilePath;
         protected string? _originalContent;
         protected Dictionary<string, object>? _saveData;
+        private bool _isLoading;
 
         [ObservableProperty]
         private string? _statusText;
 
-        public BaseViewModel()
+        protected BaseViewModel(SaveGameState saveGameState)
         {
             _saveGameService = new SaveGameService();
+            _saveGameState = saveGameState;
+            _saveGameState.DataChanged += OnSharedDataChanged;
+            PropertyChanged += OnViewModelPropertyChanged;
         }
 
         [RelayCommand]
@@ -57,8 +62,9 @@ namespace SuzerainSaveEditor
             {
                 _originalContent = await _saveGameService.LoadSaveGameAsync(_loadedFilePath);
                 _saveData = _saveGameService.ParseSaveGame(_originalContent);
+                _saveGameState.SetDocument(_loadedFilePath, _originalContent, _saveData);
 
-                LoadDataToProperties();
+                LoadDataIntoProperties();
                 StatusText = $"Refreshed from: {Path.GetFileName(_loadedFilePath)}";
             }
             catch (Exception ex)
@@ -123,6 +129,53 @@ namespace SuzerainSaveEditor
             catch (Exception ex)
             {
                 StatusText = $"Save Error: {ex.Message}";
+            }
+        }
+
+        private void OnSharedDataChanged(object? sender, EventArgs e)
+        {
+            if (_isLoading)
+            {
+                return;
+            }
+
+            _loadedFilePath = _saveGameState.LoadedFilePath;
+            _originalContent = _saveGameState.OriginalContent;
+            _saveData = _saveGameState.SaveData;
+            if (_saveData == null)
+            {
+                return;
+            }
+
+            LoadDataIntoProperties();
+        }
+
+        private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_isLoading || _saveData == null || string.IsNullOrEmpty(e.PropertyName))
+            {
+                return;
+            }
+
+            if (e.PropertyName == nameof(StatusText) || e.PropertyName == "SearchText")
+            {
+                return;
+            }
+
+            SavePropertiesToData();
+            _saveGameState.NotifyDataChanged();
+        }
+
+        private void LoadDataIntoProperties()
+        {
+            _isLoading = true;
+            try
+            {
+                LoadDataToProperties();
+            }
+            finally
+            {
+                _isLoading = false;
             }
         }
 

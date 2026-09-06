@@ -15,6 +15,10 @@
             Title="Rizia DLC"
             ContentTemplate="{DataTemplate local:RiziaPage}"
             Route="RiziaPage" />
+        <ShellContent
+            Title="Raw Save Editing"
+            ContentTemplate="{DataTemplate local:RawSavePage}"
+            Route="RawSavePage" />
     </TabBar>
 
 </Shell>

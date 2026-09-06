@@ -6,6 +6,10 @@ namespace SuzerainSaveEditor
 {
     public partial class BaseGameViewModel : BaseViewModel
     {
+        public BaseGameViewModel(SaveGameState saveGameState) : base(saveGameState)
+        {
+        }
+
         // Core & Opinion
         [ObservableProperty] 
         [NotifyPropertyChangedFor(nameof(BudgetTextColor))]

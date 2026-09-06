@@ -8,5 +8,6 @@ public partial class AppShell : Shell
 
         Routing.RegisterRoute(nameof(BaseGamePage), typeof(BaseGamePage));
         Routing.RegisterRoute(nameof(RiziaPage), typeof(RiziaPage));
+        Routing.RegisterRoute(nameof(RawSavePage), typeof(RawSavePage));
 	}
 }

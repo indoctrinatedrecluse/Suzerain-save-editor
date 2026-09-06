@@ -5,6 +5,10 @@ namespace SuzerainSaveEditor
 {
     public partial class RiziaViewModel : BaseViewModel
     {
+        public RiziaViewModel(SaveGameState saveGameState) : base(saveGameState)
+        {
+        }
+
         // Economy
         [ObservableProperty] private int? _resourcesBudget;
         [ObservableProperty] private int? _resourcesAuthority;

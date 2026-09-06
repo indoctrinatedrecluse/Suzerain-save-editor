@@ -22,10 +22,14 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<BaseGamePage>();
+        builder.Services.AddSingleton<SaveGameState>();
         builder.Services.AddSingleton<BaseGameViewModel>();
         
         builder.Services.AddSingleton<RiziaPage>();
         builder.Services.AddSingleton<RiziaViewModel>();
+
+        builder.Services.AddSingleton<RawSavePage>();
+        builder.Services.AddSingleton<RawSaveViewModel>();
 
 		return builder.Build();
 	}
