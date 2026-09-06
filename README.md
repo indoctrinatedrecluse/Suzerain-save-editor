@@ -37,3 +37,44 @@ If changes are not reflected, or even in general, always go back to main menu an
 The **Raw Save Editing** tab includes its own Load, Refresh, Save, and Export controls. Invalid raw values are rejected and marked for correction.
 
 **Disclaimer:** Modifying save files can lead to unexpected game behavior. Always back up your original saves before editing.
+
+## Release signing
+
+Windows release executables are Authenticode-signed with `signtool.exe` when signing configuration is supplied. If the signing values are missing, builds and releases continue normally without code signing.
+
+For personal, testing, or internal releases, generate a self-signed certificate locally with:
+
+```powershell
+.\generate-code-signing-secrets.ps1 -CopyBase64ToClipboard
+```
+
+The script prompts for a PFX password, creates a temporary self-signed code-signing certificate, and prints the values needed for these GitHub repository secrets:
+
+- `CODE_SIGNING_CERTIFICATE_BASE64`: Base64-encoded PFX certificate.
+- `CODE_SIGNING_CERTIFICATE_PASSWORD`: Password for the certificate.
+- `CODE_SIGNING_TIMESTAMP_URL`: RFC 3161 timestamp URL.
+
+Self-signed certificates do not establish public trust or remove Windows SmartScreen warnings. They are suitable for testing or controlled distribution, not general public releases. Never commit the generated PFX, password, Base64 output, or GitHub secret values.
+
+The local build scripts and GitHub Actions use `sign-windows-executable.ps1`. Signing is explicitly selected:
+
+```powershell
+.\build.ps1 sign
+.\build.ps1 nosign
+```
+
+The equivalent shell commands are:
+
+```bash
+./build.sh sign
+./build.sh nosign
+```
+
+For releases, use `push.ps1` with the version tag and required signing mode:
+
+```powershell
+.\push.ps1 v1.4.0 sign
+.\push.ps1 v1.4.0 nosign
+```
+
+The tag is annotated with the selected mode, and the release workflow reads it before building. For local builds, `sign` creates an ephemeral self-signed certificate. For GitHub releases, `sign` uses configured certificate secrets when available; if they are missing, the release proceeds unsigned. With `nosign`, signing is skipped.

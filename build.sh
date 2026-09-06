@@ -7,8 +7,14 @@
 # 2. .NET MAUI Workload (Will be installed by this script if missing)
 # ==============================================================================
 
+signing_mode="${1:-nosign}"
+if [ "$signing_mode" != "sign" ] && [ "$signing_mode" != "nosign" ]; then
+    echo "Usage: ./build.sh [sign|nosign]"
+    exit 1
+fi
+
 echo "====================================="
-echo "Starting Build for Suzerain Save Editor"
+echo "Starting Build for Suzerain Save Editor ($signing_mode)"
 echo "====================================="
 
 # Check if dotnet is installed
@@ -59,41 +65,18 @@ fi
 publish_path="bin/Release/net8.0-windows10.0.19041.0/win-x64/publish"
 executable_path="$publish_path/SuzerainSaveEditor.exe"
 
-if [ -n "${CODE_SIGNING_CERTIFICATE_BASE64:-}" ] &&
-   [ -n "${CODE_SIGNING_CERTIFICATE_PASSWORD:-}" ] &&
-   [ -n "${CODE_SIGNING_TIMESTAMP_URL:-}" ]; then
-    sign_tool="$(command -v signtool.exe || command -v signtool || true)"
-    if [ -z "$sign_tool" ]; then
-        echo "signtool was not found; cannot sign with the supplied configuration."
-        exit 1
-    else
-        certificate_path="$(mktemp --suffix=.pfx)"
-        cleanup() {
-            rm -f "$certificate_path"
-        }
-        trap cleanup EXIT
-
-        if ! printf '%s' "$CODE_SIGNING_CERTIFICATE_BASE64" | base64 --decode > "$certificate_path"; then
-            echo "Failed to decode the signing certificate."
-            exit 1
-        elif "$sign_tool" sign \
-            /fd SHA256 \
-            /td SHA256 \
-            /tr "$CODE_SIGNING_TIMESTAMP_URL" \
-            /f "$certificate_path" \
-            /p "$CODE_SIGNING_CERTIFICATE_PASSWORD" \
-            "$executable_path" &&
-            "$sign_tool" verify /pa /all "$executable_path"; then
-            echo "Executable signed and verified."
-        else
-            echo "Code signing failed."
-            exit 1
-        fi
-        trap - EXIT
-        cleanup
+if [ "$signing_mode" = "sign" ] && command -v pwsh &> /dev/null; then
+    export CODE_SIGNING_GENERATE_SELF_SIGNED=true
+    pwsh -File "./sign-windows-executable.ps1" -ExecutablePath "$executable_path"
+    if [ $? -ne 0 ]; then
+        echo "Code signing failed."
+        exit $?
     fi
+elif [ "$signing_mode" = "sign" ]; then
+    echo "PowerShell is unavailable; cannot create a self-signed build."
+    exit 1
 else
-    echo "Code-signing configuration is incomplete; continuing without signing."
+    echo "Code signing disabled."
 fi
 
 echo "====================================="

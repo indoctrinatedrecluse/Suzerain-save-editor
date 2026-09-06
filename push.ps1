@@ -1,25 +1,25 @@
-﻿# Stop script on any error
+﻿param(
+    [Parameter(Mandatory = $true, Position = 0)]
+    [ValidatePattern("^v\d+\.\d+\.\d+$")]
+    [string]$Tag,
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidateSet("sign", "nosign")]
+    [string]$SigningMode
+)
+
+# Stop script on any error
 $ErrorActionPreference = "Stop"
 
-# Find the first line in CHANGELOG.md that starts with 'v' followed by a version number
-$version = (Get-Content -Path CHANGELOG.md | Select-String -Pattern '^v\d+\.\d+\.\d+' | Select-Object -First 1).Line
-
-if (-not $version) {
-    Write-Error "Error: Could not find a version string like 'v1.0.0' at the start of a line in CHANGELOG.md"
-    exit 1
-}
-
-$version = $version.Trim()
-Write-Host "Found version: $version"
+Write-Host "Preparing release $Tag ($SigningMode)"
 
 # Add, commit, and tag
 git add .
-git commit -m "Release $version"
-git tag -f $version
+git commit -m "Release $Tag"
+git tag -a -f $Tag -m $SigningMode
 
 # Push the commit to master and the tag
-Write-Host "Pushing commit to master and tag $version..."
+Write-Host "Pushing commit to master and tag $Tag..."
 git push origin master
-git push origin $version --force
+git push origin $Tag --force
 
 Write-Host "Push complete. Release workflow triggered."

@@ -1,4 +1,9 @@
-﻿# ==============================================================================
+param(
+    [ValidateSet("sign", "nosign")]
+    [string]$SigningMode = "nosign"
+)
+
+# ==============================================================================
 # Suzerain Save Editor - Build Script (PowerShell)
 # ==============================================================================
 # Dependencies needed to run this script:
@@ -7,7 +12,7 @@
 # ==============================================================================
 
 Write-Host "====================================="
-Write-Host "Starting Build for Suzerain Save Editor"
+Write-Host "Starting Build for Suzerain Save Editor ($SigningMode)"
 Write-Host "====================================="
 
 # Check if dotnet is installed
@@ -57,45 +62,16 @@ if ($LASTEXITCODE -ne 0) {
 
 $publishPath = Join-Path $PSScriptRoot "bin\Release\net8.0-windows10.0.19041.0\win-x64\publish"
 $executablePath = Join-Path $publishPath "SuzerainSaveEditor.exe"
-$certificateBase64 = $env:CODE_SIGNING_CERTIFICATE_BASE64
-$certificatePassword = $env:CODE_SIGNING_CERTIFICATE_PASSWORD
-$timestampUrl = $env:CODE_SIGNING_TIMESTAMP_URL
 
-if ([string]::IsNullOrWhiteSpace($certificateBase64) -or
-    [string]::IsNullOrWhiteSpace($certificatePassword) -or
-    [string]::IsNullOrWhiteSpace($timestampUrl)) {
-    Write-Host "Code-signing configuration is incomplete; continuing without signing."
-} else {
-    $certificatePath = Join-Path $env:TEMP "suzerain-code-signing.pfx"
-    try {
-        $signTool = Get-ChildItem `
-            -Path "${env:ProgramFiles(x86)}\Windows Kits\10\bin" `
-            -Filter signtool.exe `
-            -Recurse `
-            -File |
-            Where-Object { $_.FullName -match '\\x64\\signtool\.exe$' } |
-            Sort-Object FullName -Descending |
-            Select-Object -First 1
-
-        if ($null -eq $signTool) {
-            throw "signtool.exe was not found; set up the Windows SDK or continue without signing."
-        }
-
-        [IO.File]::WriteAllBytes($certificatePath, [Convert]::FromBase64String($certificateBase64))
-        & $signTool.FullName sign /fd SHA256 /td SHA256 /tr $timestampUrl /f $certificatePath /p $certificatePassword $executablePath
-        if ($LASTEXITCODE -ne 0) {
-            throw "signtool.exe signing failed with exit code $LASTEXITCODE."
-        }
-
-        & $signTool.FullName verify /pa /all $executablePath
-        if ($LASTEXITCODE -ne 0) {
-            throw "signtool.exe verification failed with exit code $LASTEXITCODE."
-        }
-    } finally {
-        if (Test-Path $certificatePath) {
-            Remove-Item $certificatePath -Force
-        }
+if ($SigningMode -eq "sign") {
+    $env:CODE_SIGNING_GENERATE_SELF_SIGNED = "true"
+    & (Join-Path $PSScriptRoot "sign-windows-executable.ps1") -ExecutablePath $executablePath
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Code signing failed."
+        exit $LASTEXITCODE
     }
+} else {
+    Write-Host "Code signing disabled."
 }
 
 Write-Host "====================================="
