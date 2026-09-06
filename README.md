@@ -2,6 +2,10 @@
 
 A simple desktop application for editing your Suzerain save files. This tool supports both the base game (Sordland) and the Rizia DLC, allowing you to modify various game parameters to customize your playthrough.
 
+### Disclaimer - IMPORTANT!
+
+If changes are not reflected, or even in general, always go back to main menu and reload the save file from there, not from the pause menu. Especially on the Active save. The save editor works, one just needs to read this disclaimer!
+
 ## Features
 
 ### Base Game (Sordland)
